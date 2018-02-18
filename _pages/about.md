@@ -10,7 +10,7 @@ profile:
   address: >
     <p>Boston, MA</p>
 
-news: true
+news: false
 social: true
 ---
 

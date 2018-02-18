@@ -73,7 +73,7 @@ plugins:
 
 # Build settings
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 remote_theme: alshedivat/al-folio
 
 # Includes
