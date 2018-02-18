@@ -59,6 +59,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  tutorials:
+    output: true
+    permalink: /tutorials/:path/
 
 news_limit: 5
 
