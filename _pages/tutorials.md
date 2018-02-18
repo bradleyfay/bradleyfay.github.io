@@ -9,7 +9,7 @@ description: Materials for tutorials and courses taught.
 {% for tutorial in site.tutorials %}
 
 {% if tutorial.redirect %}
-<div class="tutorial">
+<div class="project">
     <div class="thumbnail">
         <a href="{{ tutorial.redirect }}" target="_blank">
         {% if tutorial.img %}
@@ -27,7 +27,7 @@ description: Materials for tutorials and courses taught.
 </div>
 {% else %}
 
-<div class="tutorial ">
+<div class="project">
     <div class="thumbnail">
         <a href="{{ tutorial.url | prepend: site.baseurl | prepend: site.url }}">
         {% if project.img %}

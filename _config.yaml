@@ -65,6 +65,11 @@ news_limit: 5
 # -----------------------------------------------------------------------------
 # Jekyll settings
 # -----------------------------------------------------------------------------
+# Plugins
+plugins:
+    - jekyll-paginate
+    - jekyll/scholar
+    - jemoji
 
 # Build settings
 markdown: kramdown
