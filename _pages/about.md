@@ -2,7 +2,7 @@
 layout: about
 permalink: /
 title: <strong>Bradley</strong> Fay 
-description: Data Scientist. Address. Contacts. Moto. Etc.
+description: Data Scientist. Sports Enthusiast. 
 
 profile:
   align: right
