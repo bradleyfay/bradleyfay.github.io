@@ -6,16 +6,16 @@ description: Data Scientist. Sports Enthusiast.
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: bfay_profile.jpeg
   address: >
-    <p>Boston, MA</p>
+    <p>Boston, MA by way of IL, NC, and AZ</p>
 
 news: false
 social: true
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com){:target="\_blank"}. You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I enjoy helping people make better decisions by challenging conventional wisdom to solve hard problems with data. 
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I currently manage a Data Science team at Wayfair.com. We're tackling problems of customer loyalty and personalization. In addition to my full-time gig, I also do sports analytics consulting on the side. A good friend and I started Cardinal Advising with a goal of bringing state of the art data science and analytics to the sports industry on both the player/personnel and the business sides.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/){:target="\_blank"} and [Academicons](https://jpswalsh.github.io/academicons/){:target="\_blank"}, like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+If you're interested in any materials I have used for previous tutorials and course I've taught, be sure to check the [tutorials page](/tutorials/). Although I'm not formally in Academia, I still spend some time working on more academic research. If you're interested in that, take a look at my publications page](/publications/).
