@@ -162,20 +162,55 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  const toggle = document.querySelector('.mobile-menu-toggle');
-  const navList = document.querySelector('.nav-list');
+  const toggle = document.querySelector('.mobile-menu-toggle') as HTMLButtonElement | null;
+  const navList = document.querySelector('.nav-list') as HTMLElement | null;
+  const navLinks = navList?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement> | undefined;
+
+  function openMenu() {
+    toggle?.setAttribute('aria-expanded', 'true');
+    navList?.classList.add('open');
+    // Focus first nav link when menu opens
+    navLinks?.[0]?.focus();
+  }
+
+  function closeMenu() {
+    toggle?.setAttribute('aria-expanded', 'false');
+    navList?.classList.remove('open');
+    // Return focus to toggle button
+    toggle?.focus();
+  }
 
   toggle?.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    navList?.classList.toggle('open');
+    if (expanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
   // Close menu on escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navList?.classList.contains('open')) {
-      toggle?.setAttribute('aria-expanded', 'false');
-      navList.classList.remove('open');
+      closeMenu();
+    }
+  });
+
+  // Focus trap for mobile menu
+  navList?.addEventListener('keydown', (e) => {
+    if (!navList.classList.contains('open') || !navLinks?.length) return;
+
+    if (e.key === 'Tab') {
+      const firstLink = navLinks[0];
+      const lastLink = navLinks[navLinks.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstLink) {
+        e.preventDefault();
+        lastLink.focus();
+      } else if (!e.shiftKey && document.activeElement === lastLink) {
+        e.preventDefault();
+        firstLink.focus();
+      }
     }
   });
 
@@ -187,8 +222,7 @@ function isActive(href: string): boolean {
       !navList.contains(target) &&
       !toggle?.contains(target)
     ) {
-      toggle?.setAttribute('aria-expanded', 'false');
-      navList.classList.remove('open');
+      closeMenu();
     }
   });
 </script>

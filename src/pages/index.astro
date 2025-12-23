@@ -1,9 +1,28 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactLinks from '../components/ContactLinks.astro';
 
-const title = 'Bradley Fay - Product Leader | Data Science & ML/AI';
-const description = 'Product leader at DraftKings representing Data Science and ML/AI. Expertise in experimentation platforms, ML systems, and team building.';
+// Fetch profile data from site collection
+const siteEntries = await getCollection('site');
+const profileEntry = siteEntries.find(entry => entry.data.type === 'profile');
+const profile = profileEntry?.data;
+
+// Fetch expertise cards for home page and pre-render content
+const allExpertise = await getCollection('expertise');
+const homeExpertiseSorted = allExpertise
+  .filter(entry => entry.data.pages.includes('home'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const homeExpertise = await Promise.all(
+  homeExpertiseSorted.map(async (entry) => ({
+    ...entry,
+    Content: (await render(entry)).Content,
+  }))
+);
+
+const title = `${profile?.name || 'Bradley Fay'} - Product Leader | Data Science & ML/AI`;
+const description = `Product leader at ${profile?.company || 'DraftKings'} representing Data Science and ML/AI. Expertise in experimentation platforms, ML systems, and team building.`;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -13,8 +32,8 @@ const description = 'Product leader at DraftKings representing Data Science and 
       <div class="container hero-content">
         <div class="profile-image-wrapper">
           <img
-            src="/images/bfay_profile.jpeg"
-            alt="Bradley Fay - Product Leader in Data Science and ML/AI"
+            src={profile?.image || '/images/bfay_profile.jpeg'}
+            alt={`${profile?.name || 'Bradley Fay'} - Product Leader in Data Science and ML/AI`}
             class="profile-image"
             width="240"
             height="240"
@@ -23,10 +42,10 @@ const description = 'Product leader at DraftKings representing Data Science and 
         </div>
 
         <div class="hero-text">
-          <h1>Bradley Fay</h1>
+          <h1>{profile?.name || 'Bradley Fay'}</h1>
           <p class="role">
-            <strong>Director, Product - Data Science & ML/AI</strong><br />
-            <span class="company">DraftKings</span>
+            <strong>{profile?.role || 'Director, Product - Data Science & ML/AI'}</strong><br />
+            <span class="company">{profile?.company || 'DraftKings'}</span>
           </p>
 
           <div class="contact-wrapper">
@@ -42,34 +61,17 @@ const description = 'Product leader at DraftKings representing Data Science and 
         <h2 class="sr-only">Expertise</h2>
         <div class="tagline">
           <p class="lead">
-            Building AI/ML systems and teams that scale from chaos to clarity.
+            {profile?.tagline || 'Building AI/ML systems and teams that scale from chaos to clarity.'}
           </p>
         </div>
 
         <div class="expertise-areas">
-          <div class="expertise-card">
-            <h3>Experimentation at Scale</h3>
-            <p>
-              Architected transformation from 6% validity rate to hundreds of concurrent
-              experiments driving hundreds of millions in revenue impact.
-            </p>
-          </div>
-
-          <div class="expertise-card">
-            <h3>ML System Architecture</h3>
-            <p>
-              Designed offer optimization systems using causal inference, contextual
-              bandits, and business constraint optimization.
-            </p>
-          </div>
-
-          <div class="expertise-card">
-            <h3>Team Building & Leadership</h3>
-            <p>
-              Scaled data science teams from 18 to 40+ people while creating career
-              frameworks adopted org-wide.
-            </p>
-          </div>
+          {homeExpertise.map(({ data, Content }) => (
+            <div class="expertise-card">
+              <h3>{data.title}</h3>
+              <Content />
+            </div>
+          ))}
         </div>
       </div>
     </section>
