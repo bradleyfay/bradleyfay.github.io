@@ -1,28 +1,235 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+
+const title = 'Bradley Fay - Product Leader | Data Science & ML/AI';
+const description = 'Product leader at DraftKings representing Data Science and ML/AI. Expertise in experimentation platforms, ML systems, and team building.';
 ---
 
-<BaseLayout
-  title="Bradley Fay | Director, Product - Data Science & ML/AI"
-  description="Product leader at DraftKings representing Data Science and ML/AI, with expertise in experimentation, team building, and AI adoption."
->
-  <section class="hero">
-    <h1>Bradley Fay</h1>
-    <p>Website under construction. Check back soon!</p>
-  </section>
+<BaseLayout title={title} description={description}>
+  <div class="homepage">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="profile-image-wrapper">
+          <img
+            src="/images/bfay_profile.jpeg"
+            alt="Bradley Fay - Product Leader in Data Science and ML/AI"
+            class="profile-image"
+            width="240"
+            height="240"
+            loading="eager"
+          />
+        </div>
+
+        <div class="hero-text">
+          <h1>Bradley Fay</h1>
+          <p class="role">
+            <strong>Director, Product - Data Science & ML/AI</strong><br />
+            <span class="company">DraftKings</span>
+          </p>
+
+          <div class="contact-wrapper">
+            <ContactLinks size="lg" showLabels={true} direction="horizontal" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="expertise">
+      <div class="container">
+        <h2 class="sr-only">Expertise</h2>
+        <div class="tagline">
+          <p class="lead">
+            Building AI/ML systems and teams that scale from chaos to clarity.
+          </p>
+        </div>
+
+        <div class="expertise-areas">
+          <div class="expertise-card">
+            <h3>Experimentation at Scale</h3>
+            <p>
+              Architected transformation from 6% validity rate to hundreds of concurrent
+              experiments driving hundreds of millions in revenue impact.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>ML System Architecture</h3>
+            <p>
+              Designed offer optimization systems using causal inference, contextual
+              bandits, and business constraint optimization.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>Team Building & Leadership</h3>
+            <p>
+              Scaled data science teams from 18 to 40+ people while creating career
+              frameworks adopted org-wide.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
+  .homepage {
+    padding-bottom: var(--space-2xl);
+  }
+
+  /* Hero Section */
   .hero {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: var(--space-2xl) var(--space-lg);
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    background: var(--color-surface);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xl);
+  }
+
+  .profile-image-wrapper {
+    flex-shrink: 0;
+  }
+
+  .profile-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-text h1 {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-3xl);
+  }
+
+  .role {
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .company {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .contact-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  /* Expertise Section */
+  .expertise {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .tagline {
+    margin-bottom: var(--space-2xl);
     text-align: center;
   }
 
-  h1 {
-    font-family: var(--font-serif);
-    font-size: 2.5rem;
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .expertise-areas {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+
+  .expertise-card {
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+  }
+
+  .expertise-card h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-xl);
+    font-weight: 600;
     margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .expertise-card p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* Tablet breakpoint (640px+) */
+  @media (min-width: 640px) {
+    .hero-content {
+      flex-direction: row;
+      text-align: left;
+      align-items: center;
+      gap: var(--space-2xl);
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+    }
+
+    .hero-text h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .contact-wrapper {
+      justify-content: flex-start;
+    }
+
+    .expertise-areas {
+      gap: var(--space-lg);
+    }
+  }
+
+  /* Desktop breakpoint (1024px+) */
+  @media (min-width: 1024px) {
+    .profile-image {
+      width: 240px;
+      height: 240px;
+    }
+
+    .expertise-areas {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .expertise-card {
+      padding: var(--space-2xl);
+    }
+  }
+
+  /* Large desktop breakpoint (1280px+) */
+  @media (min-width: 1280px) {
+    .hero {
+      padding-top: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+    }
+
+    .lead {
+      font-size: var(--text-2xl);
+    }
   }
 </style>
