@@ -1,0 +1,86 @@
+---
+/**
+ * TimelineItem Component
+ *
+ * Displays a career timeline entry with year, title, and description.
+ * Includes visual timeline connector styling.
+ *
+ * Props:
+ * - year: Year or year range (e.g., "2025" or "2021-2025")
+ * - title: Position or milestone title
+ * - Slot: Description content (markdown rendered)
+ */
+
+interface Props {
+  year: string;
+  title: string;
+}
+
+const { year, title } = Astro.props;
+---
+
+<div class="timeline-item">
+  <div class="timeline-year">{year}</div>
+  <div class="timeline-content">
+    <h3>{title}</h3>
+    <div class="description">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline-item {
+    display: grid;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-year {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+    position: relative;
+  }
+
+  .timeline-content h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .description {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .description :global(p) {
+    margin: 0;
+  }
+
+  /* Tablet breakpoint */
+  @media (min-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 8rem 1fr;
+      align-items: start;
+    }
+
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -1.75rem;
+      top: 0.5rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      background: var(--color-accent);
+      border-radius: 50%;
+      border: 2px solid var(--color-background);
+    }
+  }
+</style>

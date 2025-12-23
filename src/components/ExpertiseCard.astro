@@ -1,0 +1,58 @@
+---
+/**
+ * ExpertiseCard Component
+ *
+ * Displays an expertise/skill area with title and description.
+ * Used on both home and about pages for consistent styling.
+ *
+ * Props:
+ * - title: Expertise area title
+ * - Slot: Description content (markdown rendered)
+ */
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="expertise-card">
+  <h3>{title}</h3>
+  <div class="description">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .expertise-card {
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+  }
+
+  .expertise-card h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .description {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .description :global(p) {
+    margin: 0;
+  }
+
+  /* Desktop breakpoint */
+  @media (min-width: 1024px) {
+    .expertise-card {
+      padding: var(--space-2xl);
+    }
+  }
+</style>
