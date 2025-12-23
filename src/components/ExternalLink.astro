@@ -1,10 +1,18 @@
 ---
+/**
+ * ExternalLink Component
+ *
+ * Renders an accessible external link that opens in a new tab.
+ * Includes screen reader text indicating the link opens externally.
+ */
 interface Props {
   href: string;
   class?: string;
+  /** Provide custom aria-label (overrides default "opens in new tab" suffix) */
+  ariaLabel?: string;
 }
 
-const { href, class: className } = Astro.props;
+const { href, class: className, ariaLabel } = Astro.props;
 ---
 
 <a
@@ -12,6 +20,22 @@ const { href, class: className } = Astro.props;
   target="_blank"
   rel="noopener noreferrer"
   class={className}
+  aria-label={ariaLabel}
 >
   <slot />
+  <span class="sr-only">(opens in new tab)</span>
 </a>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
