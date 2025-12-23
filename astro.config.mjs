@@ -9,9 +9,15 @@ export default defineConfig({
   build: {
     assets: 'assets'
   },
+  compressHTML: true,
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport'
+  },
   vite: {
     build: {
-      cssMinify: true
+      cssMinify: true,
+      minify: 'esbuild'
     }
   }
 });
