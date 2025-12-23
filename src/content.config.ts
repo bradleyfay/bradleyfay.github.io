@@ -38,7 +38,7 @@ const speaking = defineCollection({
     venue: z.string(),
     date: z.coerce.date(),
     type: z.enum(['podcast', 'conference', 'webinar', 'panel', 'interview']),
-    url: z.string().url(),
+    url: z.string().url().optional().or(z.literal('')),
     description: z.string().optional(),
     episode: z.string().optional(),
     topics: z.array(z.string()).optional(),
