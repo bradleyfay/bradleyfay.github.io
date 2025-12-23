@@ -1,0 +1,248 @@
+---
+/**
+ * SpeakingCard Component
+ *
+ * Displays a speaking engagement with type icon, venue, and link.
+ * Supports different engagement types: podcast, conference, webinar, panel, interview.
+ *
+ * Props:
+ * - title: Talk or episode title
+ * - venue: Platform, conference, or podcast name
+ * - date: Date of the engagement
+ * - type: Type of speaking engagement
+ * - url: External link to recording or event page
+ * - description: (optional) Brief description of the talk
+ */
+
+import ExternalLink from './ExternalLink.astro';
+
+interface Props {
+  title: string;
+  venue: string;
+  date: Date;
+  type: 'podcast' | 'conference' | 'webinar' | 'panel' | 'interview';
+  url?: string;
+  description?: string;
+}
+
+const { title, venue, date, type, url, description } = Astro.props;
+
+// Type icons - simple SVG paths for clarity
+const typeIcons = {
+  podcast: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="11" r="3"/>
+    <path d="M19 11a7 7 0 1 0-14 0"/>
+    <path d="M12 14v7"/>
+    <path d="M8 21h8"/>
+  </svg>`,
+  conference: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>`,
+  webinar: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2"/>
+    <path d="M8 21h8"/>
+    <path d="M12 17v4"/>
+  </svg>`,
+  panel: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>`,
+  interview: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+    <line x1="12" x2="12" y1="19" y2="22"/>
+  </svg>`,
+};
+
+// Format date for display
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(date);
+
+// Type labels for accessibility
+const typeLabels = {
+  podcast: 'Podcast',
+  conference: 'Conference Talk',
+  webinar: 'Webinar',
+  panel: 'Panel Discussion',
+  interview: 'Interview',
+};
+---
+
+<article class="speaking-card">
+  <div class="card-header">
+    <div class="type-badge" aria-label={typeLabels[type]}>
+      <span class="type-icon" set:html={typeIcons[type]} />
+      <span class="type-label">{typeLabels[type]}</span>
+    </div>
+    <time datetime={date.toISOString()} class="date">
+      {formattedDate}
+    </time>
+  </div>
+
+  <h3 class="title">
+    {url ? (
+      <ExternalLink href={url} class="title-link">
+        {title}
+      </ExternalLink>
+    ) : (
+      <span class="title-text">{title}</span>
+    )}
+  </h3>
+
+  <p class="venue">{venue}</p>
+
+  {description && (
+    <p class="description">{description}</p>
+  )}
+
+  {url && (
+    <ExternalLink href={url} class="external-link">
+      <span class="link-text">Listen or watch</span>
+      <span class="link-icon" aria-hidden="true">→</span>
+    </ExternalLink>
+  )}
+</article>
+
+<style>
+  .speaking-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-xl);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .speaking-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-accent);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .type-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .type-icon {
+    display: flex;
+    align-items: center;
+    color: var(--color-accent);
+  }
+
+  .type-icon :global(svg) {
+    display: block;
+  }
+
+  .type-label {
+    text-transform: capitalize;
+  }
+
+  .date {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .title-link,
+  .title-text {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .title-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .venue {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .description {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+    font-size: var(--text-base);
+  }
+
+  .external-link {
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    text-decoration: none;
+    margin-top: auto;
+    transition: all 0.2s ease;
+  }
+
+  .external-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: none;
+    gap: var(--space-sm);
+  }
+
+  .external-link:hover .link-text {
+    text-decoration: underline;
+  }
+
+  .link-icon {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .external-link:hover .link-icon {
+    transform: translateX(2px);
+  }
+
+  /* Tablet breakpoint (640px+) */
+  @media (min-width: 640px) {
+    .speaking-card {
+      padding: var(--space-2xl);
+    }
+
+    .title {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  /* Desktop breakpoint (1024px+) */
+  @media (min-width: 1024px) {
+    .card-header {
+      flex-wrap: nowrap;
+    }
+  }
+</style>

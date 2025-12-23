@@ -1,0 +1,238 @@
+---
+/**
+ * Speaking Page
+ *
+ * Displays Bradley Fay's speaking engagements including podcast appearances,
+ * conference talks, webinars, panels, and interviews.
+ *
+ * Content is sourced from the 'speaking' content collection and sorted
+ * chronologically (newest first).
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpeakingCard from '../components/SpeakingCard.astro';
+
+// Fetch all speaking engagements and sort by date (newest first)
+const speakingEntries = await getCollection('speaking');
+const sortedSpeaking = speakingEntries.sort((a, b) => {
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+const title = 'Speaking | Bradley Fay';
+const description = 'Podcast appearances, conference talks, and speaking engagements on data science, machine learning, experimentation, and product leadership.';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="speaking-page">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1>Speaking</h1>
+        <p class="lead">
+          Podcast appearances, conference talks, and conversations about data science,
+          machine learning, experimentation platforms, and building AI/ML teams.
+        </p>
+      </header>
+
+      <!-- Speaking Engagements -->
+      <section class="speaking-section" aria-label="Speaking engagements">
+        {sortedSpeaking.length > 0 ? (
+          <div class="speaking-grid">
+            {sortedSpeaking.map((entry) => (
+              <SpeakingCard
+                title={entry.data.title}
+                venue={entry.data.venue}
+                date={entry.data.date}
+                type={entry.data.type}
+                url={entry.data.url}
+                description={entry.data.description}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <p class="empty-message">
+              Speaking engagements will be added soon. Check back later or
+              <a href="mailto:bradley.fay@gmail.com">reach out</a> to discuss
+              podcast appearances or speaking opportunities.
+            </p>
+          </div>
+        )}
+      </section>
+
+      <!-- Call to Action -->
+      {sortedSpeaking.length > 0 && (
+        <section class="cta-section">
+          <div class="cta-card">
+            <h2>Interested in a conversation?</h2>
+            <p>
+              I'm always happy to discuss experimentation platforms, ML system
+              architecture, data science team building, and product leadership.
+            </p>
+            <a href="mailto:bradley.fay@gmail.com" class="cta-button">
+              Get in touch
+            </a>
+          </div>
+        </section>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .speaking-page {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  /* Page Header */
+  .page-header {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Speaking Section */
+  .speaking-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .speaking-grid {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+
+  /* Empty State */
+  .empty-state {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .empty-message {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .empty-message a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .empty-message a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  /* Call to Action Section */
+  .cta-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-card h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-card p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--text-base);
+    transition: all 0.2s ease;
+  }
+
+  .cta-button:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    text-decoration: none;
+  }
+
+  /* Tablet breakpoint (640px+) */
+  @media (min-width: 640px) {
+    .page-header h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .lead {
+      font-size: var(--text-xl);
+    }
+
+    .speaking-grid {
+      gap: var(--space-lg);
+    }
+  }
+
+  /* Desktop breakpoint (1024px+) */
+  @media (min-width: 1024px) {
+    .speaking-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-card {
+      padding: var(--space-2xl) var(--space-2xl);
+    }
+
+    .cta-card h2 {
+      font-size: var(--text-3xl);
+    }
+
+    .cta-card p {
+      font-size: var(--text-lg);
+    }
+  }
+
+  /* Large desktop breakpoint (1280px+) */
+  @media (min-width: 1280px) {
+    .page-header h1 {
+      font-size: calc(var(--text-4xl) * 1.1);
+    }
+  }
+</style>
