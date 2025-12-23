@@ -1,0 +1,60 @@
+---
+import SEO from '../components/SEO.astro';
+import SkipLink from '../components/SkipLink.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  /** Page title - used in <title> and og:title */
+  title: string;
+  /** Meta description - used in meta description and og:description */
+  description: string;
+  /** Optional custom OG image path (defaults to profile image) */
+  image?: string;
+  /** Optional body class for page-specific styling */
+  class?: string;
+}
+
+const { title, description, image, class: className } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <SEO title={title} description={description} image={image} />
+  </head>
+  <body class:list={[className]}>
+    <SkipLink />
+    <Header currentPath={Astro.url.pathname} />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>
