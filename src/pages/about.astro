@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About - Bradley Fay"
+  description="Product leader specializing in experimentation platforms, ML/AI strategy, and data science team development. VP-level expertise in building high-impact systems from the ground up."
+>
+  <div class="about-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>About</h1>
+        <p class="lead">
+          Product leader at the intersection of data science, machine learning, and experimentation.
+          I architect structure from chaos and build high-performing teams that deliver measurable business impact.
+        </p>
+      </div>
+    </section>
+
+    <!-- Bio Section -->
+    <section class="bio">
+      <div class="container">
+        <h2>Background</h2>
+        <div class="bio-content">
+          <p>
+            I lead Product for Data Science and ML/AI at DraftKings, where I represent a 40+ person
+            organization responsible for experimentation infrastructure, offer optimization systems,
+            and AI adoption across the company. My approach focuses on building sustainable systems
+            that scale beyond any individual contributor.
+          </p>
+          <p>
+            Before transitioning to product leadership, I spent five years scaling DraftKings' data
+            science organization from 18 to over 40 people, transforming our experimentation platform
+            from a 6% validity rate to supporting hundreds of concurrent experiments, and architecting
+            ML systems that drive hundreds of millions in revenue impact.
+          </p>
+          <p>
+            I hold a PhD in Marketing with a focus on quantitative methods and consumer behavior.
+            My academic background in causal inference and experimental design directly informs how
+            I approach product strategy and team development in applied settings.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="expertise">
+      <div class="container">
+        <h2>Areas of Expertise</h2>
+        <div class="expertise-grid">
+          <div class="expertise-card">
+            <h3>Experimentation & A/B Testing</h3>
+            <p>
+              Designed and scaled experimentation platforms from broken to business-critical.
+              Expert in experimental design, statistical validity, and building cross-functional
+              consensus around measurement frameworks.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>ML/AI Product Strategy</h3>
+            <p>
+              Architect ML systems with modular design: candidate selection, allocation, optimization,
+              and feedback loops. Specialize in zero-to-one initiatives that balance technical
+              sophistication with business constraints.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>Data Science Leadership</h3>
+            <p>
+              Scaled teams from 18 to 40+ while maintaining quality and culture. Created the career
+              leveling framework that became the organizational standard. Build high-performing
+              teams that own outcomes, not just deliverables.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>Causal Inference & Econometrics</h3>
+            <p>
+              Deep expertise in causal methods (IPW, regression discontinuity, synthetic controls)
+              and their application to business problems. Translate academic rigor into production
+              systems that inform high-stakes decisions.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>Product Strategy</h3>
+            <p>
+              Lead cross-functional initiatives from conception through delivery. Expert at
+              navigating organizational complexity, building stakeholder alignment, and shipping
+              systems that solve real problems rather than hypothetical ones.
+            </p>
+          </div>
+
+          <div class="expertise-card">
+            <h3>Vendor & Budget Management</h3>
+            <p>
+              Own vendor relationships end-to-end, from technical evaluation to commercial
+              negotiation. Understand how to structure agreements that align with company stage
+              and cash flow dynamics.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Highlights Section -->
+    <section class="highlights">
+      <div class="container">
+        <h2>Career Highlights</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+              <h3>Director, Product - Data Science & ML/AI</h3>
+              <p>
+                Transitioned to product leadership to expand scope beyond data science team
+                management. Lead AI adoption frameworks, IPDLC process design, and cross-functional
+                product strategy.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2021-2025</div>
+            <div class="timeline-content">
+              <h3>Director, Data Science</h3>
+              <p>
+                Scaled organization from 18 to 40+ people. Transformed experimentation platform,
+                designed offer optimization systems, created career leveling framework adopted
+                company-wide. VP-level scope and impact.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2019-2021</div>
+            <div class="timeline-content">
+              <h3>Senior Manager, Data Science</h3>
+              <p>
+                Built data science engineering team, launched personalization systems using
+                multi-armed bandits, established technical foundations for ML infrastructure.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2017</div>
+            <div class="timeline-content">
+              <h3>PhD, Marketing (Quantitative Focus)</h3>
+              <p>
+                University of Colorado Boulder. Dissertation on causal inference in observational
+                data. Academic foundation in experimental design, econometrics, and statistical
+                modeling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-bottom: var(--space-2xl);
+  }
+
+  /* Hero Section */
+  .hero {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .lead {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 48rem;
+  }
+
+  /* Bio Section */
+  .bio {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .bio-content {
+    max-width: 48rem;
+  }
+
+  .bio-content p {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .bio-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Expertise Section */
+  .expertise {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    background-color: var(--color-surface);
+  }
+
+  .expertise h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  .expertise-grid {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .expertise-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .expertise-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+    }
+  }
+
+  .expertise-card {
+    background: var(--color-background);
+    padding: var(--space-lg);
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .expertise-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .expertise-card p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  /* Career Highlights Section */
+  .highlights {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .highlights h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  .timeline {
+    max-width: 48rem;
+    position: relative;
+  }
+
+  /* Timeline connector line - only show on larger screens */
+  @media (min-width: 640px) {
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 4rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-border);
+    }
+  }
+
+  .timeline-item {
+    display: grid;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 8rem 1fr;
+      align-items: start;
+    }
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-year {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -1.75rem;
+      top: 0.5rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      background: var(--color-accent);
+      border-radius: 50%;
+      border: 2px solid var(--color-background);
+    }
+  }
+
+  .timeline-content h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline-content p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  /* Responsive adjustments */
+  @media (min-width: 1024px) {
+    .hero {
+      padding-top: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+    }
+
+    .lead {
+      font-size: var(--text-xl);
+    }
+
+    .bio-content p {
+      font-size: var(--text-lg);
+    }
+  }
+</style>
