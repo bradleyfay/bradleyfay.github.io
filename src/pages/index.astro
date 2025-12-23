@@ -1,16 +1,28 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Bradley Fay | Director, Product - Data Science & ML/AI"
+  description="Product leader at DraftKings representing Data Science and ML/AI, with expertise in experimentation, team building, and AI adoption."
+>
+  <section class="hero">
+    <h1>Bradley Fay</h1>
+    <p>Website under construction. Check back soon!</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+    text-align: center;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+  }
+</style>

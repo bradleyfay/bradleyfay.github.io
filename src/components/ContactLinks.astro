@@ -1,0 +1,114 @@
+---
+interface Props {
+  /** Size variant */
+  size?: 'sm' | 'md' | 'lg';
+  /** Show labels or icons only */
+  showLabels?: boolean;
+  /** Horizontal or vertical layout */
+  direction?: 'horizontal' | 'vertical';
+}
+
+const { size = 'md', showLabels = false, direction = 'horizontal' } = Astro.props;
+
+const contacts = [
+  {
+    href: 'https://linkedin.com/in/bradleyfay',
+    label: 'LinkedIn',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  },
+  {
+    href: 'mailto:bfay@fastmail.com',
+    label: 'Email',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+  },
+];
+
+const sizeClasses = {
+  sm: 'size-sm',
+  md: 'size-md',
+  lg: 'size-lg',
+};
+---
+
+<div class:list={['contact-links', sizeClasses[size], direction]}>
+  {contacts.map((contact) => (
+    <a
+      href={contact.href}
+      class="contact-link"
+      target={contact.href.startsWith('mailto:') ? undefined : '_blank'}
+      rel={contact.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+      aria-label={showLabels ? undefined : contact.label}
+    >
+      <span class="icon" set:html={contact.icon} />
+      {showLabels && <span class="label">{contact.label}</span>}
+    </a>
+  ))}
+</div>
+
+<style>
+  .contact-links {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .contact-links.vertical {
+    flex-direction: column;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  .contact-link:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .label {
+    font-weight: 500;
+  }
+
+  /* Size variants */
+  .size-sm .icon :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .size-sm .label {
+    font-size: 0.875rem;
+  }
+
+  .size-md .icon :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .size-md .label {
+    font-size: 1rem;
+  }
+
+  .size-lg .icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .size-lg .label {
+    font-size: 1.125rem;
+  }
+</style>
