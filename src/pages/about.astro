@@ -211,32 +211,36 @@ const timelineEntries = await Promise.all(
   .timeline {
     max-width: 48rem;
     position: relative;
+    padding-left: 0;
   }
 
-  /* Timeline connector line - only show on larger screens */
+  /* Timeline connector line - positioned relative to year column */
   @media (min-width: 640px) {
     .timeline::before {
       content: '';
       position: absolute;
-      left: 4rem;
-      top: 0;
-      bottom: 0;
+      left: 6.5rem;
+      top: 0.35rem;
+      bottom: 1rem;
       width: 2px;
-      background: var(--color-border);
+      background: linear-gradient(to bottom, var(--color-accent), var(--color-border));
     }
   }
 
   .timeline-item {
     display: grid;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-2xl);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
     grid-template-columns: 1fr;
+    position: relative;
   }
 
   @media (min-width: 640px) {
     .timeline-item {
-      grid-template-columns: 8rem 1fr;
+      grid-template-columns: 6rem 1fr;
+      gap: var(--space-xl);
       align-items: start;
+      padding-left: 0;
     }
   }
 
@@ -246,23 +250,25 @@ const timelineEntries = await Promise.all(
 
   .timeline-year {
     font-family: var(--font-serif);
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     font-weight: 700;
     color: var(--color-accent);
     position: relative;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: var(--space-lg);
   }
 
   @media (min-width: 640px) {
     .timeline-year::after {
       content: '';
       position: absolute;
-      right: -1.75rem;
-      top: 0.5rem;
-      width: 0.75rem;
-      height: 0.75rem;
+      right: -0.25rem;
+      top: 0.25rem;
+      width: 0.5rem;
+      height: 0.5rem;
       background: var(--color-accent);
       border-radius: 50%;
-      border: 2px solid var(--color-background);
     }
   }
 
