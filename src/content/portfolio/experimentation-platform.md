@@ -24,7 +24,7 @@ metrics:
 
 ## The Challenge
 
-When I joined DraftKings as Director of Data Science, there was a significant disconnect between perception and reality in our experimentation program. The organization believed our A/B testing infrastructure was producing reliable results. I suspected otherwise, but suspicion alone doesn't drive change.
+When I joined DraftKings, there was a significant disconnect between perception and reality in our experimentation program. The organization believed our A/B testing infrastructure was producing reliable results. I suspected otherwise, but suspicion alone doesn't drive change.
 
 The real challenge wasn't technical—it was cultural. **How do you convince an organization that a system they believe is working is actually fundamentally broken?**
 
@@ -36,7 +36,7 @@ I knew that showing up with data first would trigger defensive reactions. Instea
 
 ### 1. Framework Before Evidence
 
-I built a comprehensive framework defining what constitutes a reliable experiment—statistical validity, proper randomization, sample size adequacy, metric selection, bias detection, and confound analysis. This wasn't controversial; these are well-established principles in experimentation.
+I built a comprehensive framework defining what constitutes a reliable experiment—statistical validity, proper randomization, sample size adequacy, metric selection, bias detection, and confound analysis. This wasn't controversial; these are well-established principles in experimentation. 
 
 ### 2. Build Consensus on Standards
 
@@ -44,7 +44,7 @@ I worked with the team's subject matter experts to codify the framework into an 
 
 ### 3. Meta-Analysis as Mirror
 
-We analyzed 2.5 years of historical experiments against the agreed-upon framework. When we sat in a room and reviewed the results, the revelation was undeniable: **Only 6 out of approximately 100 experiments met our validity standards.**
+We analyzed 2.5 years of historical experiments against the agreed-upon framework. The goal here was someone was going to learn something. Either I was going to learn that my assumptions were wrong and our system was perfectly fine, or we were going to generate the data that was necessary to validate my suspicion. When we sat in a room and reviewed the results, the revelation was undeniable: **Only 6 out of approximately 100 experiments met our validity standards.**
 
 We weren't slightly off. We had a 6% success rate.
 

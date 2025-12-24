@@ -1,5 +1,5 @@
 ---
-year: "2021-2025"
+year: "2021"
 title: Director, Data Science
 type: position
 order: 2
