@@ -1,32 +1,52 @@
 ---
-import Navigation from './Navigation.astro';
+/**
+ * Site Header
+ *
+ * Minimal header with just name and navigation links
+ */
 
 interface Props {
-  /** Current page path for active nav highlighting */
   currentPath?: string;
 }
 
 const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { href: '/about', label: 'About' },
+  { href: '/portfolio', label: 'Writing' },
+  { href: '/speaking', label: 'Speaking' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/' || currentPath === '';
+  return currentPath.startsWith(href);
+}
 ---
 
 <header class="site-header">
   <div class="header-container">
-    <a href="/" class="site-title">Bradley Fay</a>
-    <Navigation currentPath={currentPath} />
+    <a href="/" class="site-name">Bradley Fay</a>
+    <nav class="nav" aria-label="Main navigation">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class:list={['nav-link', { active: isActive(item.href) }]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </header>
 
 <style>
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: var(--color-background);
     border-bottom: 1px solid var(--color-border);
   }
 
   .header-container {
-    max-width: 1200px;
+    max-width: var(--page-width);
     margin: 0 auto;
     padding: var(--space-md) var(--space-lg);
     display: flex;
@@ -34,31 +54,45 @@ const { currentPath = Astro.url.pathname } = Astro.props;
     align-items: center;
   }
 
-  .site-title {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
+  .site-name {
+    font-weight: 600;
     color: var(--color-text);
     text-decoration: none;
-    transition: color 0.2s ease;
   }
 
-  .site-title:hover {
+  .site-name:hover {
     color: var(--color-accent);
+    text-decoration: none;
   }
 
-  .site-title:focus {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+  .nav {
+    display: flex;
+    gap: var(--space-lg);
   }
 
-  @media (max-width: 768px) {
+  .nav-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: var(--text-sm);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
     .header-container {
-      padding: var(--space-sm) var(--space-md);
+      padding: var(--space-md) var(--space-xl);
     }
+  }
 
-    .site-title {
-      font-size: 1.25rem;
+  @media (max-width: 480px) {
+    .header-container {
+      flex-direction: column;
+      gap: var(--space-sm);
+      text-align: center;
     }
   }
 </style>

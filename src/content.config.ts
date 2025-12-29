@@ -4,24 +4,24 @@ import { glob } from 'astro/loaders';
 /**
  * Portfolio Collection
  *
- * Case studies and project highlights from Bradley's career.
- * Featured items appear on the homepage.
+ * Essays, guides, and writing on building AI/ML systems and teams.
+ * Content is universal/educational rather than company-specific case studies.
+ *
+ * Design philosophy: Clean, blog-style presentation.
+ * Let the prose content speak for itself.
  */
 const portfolio = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/portfolio' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    problem: z.string(),
-    approach: z.string(),
-    outcome: z.string(),
-    company: z.string(),
-    role: z.string(),
-    timeframe: z.string(),
+    // Optional fields - only used if relevant
+    company: z.string().optional(),
+    role: z.string().optional(),
+    timeframe: z.string().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(0),
     tags: z.array(z.string()).optional(),
-    metrics: z.array(z.string()).optional(),
   })
 });
 
