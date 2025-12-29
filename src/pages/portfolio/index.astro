@@ -1,205 +1,123 @@
 ---
 /**
- * Portfolio Page
+ * Writing / Work Page
  *
- * Displays all case studies from the portfolio content collection.
- * Features problem-approach-outcome structure for each case study.
- * Highlights featured work prominently.
+ * Essays and guides on building AI/ML systems and teams
+ * Minimal design - just links and descriptions
  */
 
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CaseStudyCard from '../../components/CaseStudyCard.astro';
 
-const title = 'Portfolio - Bradley Fay';
-const description = 'Case studies and project highlights from product and data science leadership roles, including experimentation platforms, ML systems, and team building.';
+const title = 'Writing - Bradley Fay';
+const description = 'Essays and guides on building AI/ML systems, experimentation platforms, and data science teams.';
 
-// Fetch and sort portfolio items by order field
+// Fetch and sort portfolio items
 const portfolioItems = (await getCollection('portfolio')).sort(
   (a, b) => a.data.order - b.data.order
 );
-
-// Separate featured and regular case studies
-const featuredItems = portfolioItems.filter((item) => item.data.featured);
-const regularItems = portfolioItems.filter((item) => !item.data.featured);
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="portfolio-page">
+  <main class="work-page">
     <div class="container">
-      <!-- Page Header -->
       <header class="page-header">
-        <h1>Portfolio</h1>
+        <h1>Writing</h1>
         <p class="lead">
-          Case studies from building AI/ML systems, experimentation platforms, and
-          high-performing data science teams.
+          Essays and guides on building AI/ML systems, experimentation platforms,
+          and data science teams.
         </p>
       </header>
 
       {portfolioItems.length === 0 ? (
-        <!-- Empty State -->
-        <div class="empty-state">
-          <p class="empty-message">
-            Portfolio case studies coming soon. Check back shortly to see detailed
-            project highlights and impact stories.
-          </p>
-        </div>
+        <p class="empty">Essays coming soon.</p>
       ) : (
-        <>
-          {/* Featured Case Studies */}
-          {featuredItems.length > 0 && (
-            <section class="featured-section">
-              <h2 class="section-heading">Featured Work</h2>
-              <div class="case-study-grid featured-grid">
-                {featuredItems.map((item) => (
-                  <CaseStudyCard
-                    title={item.data.title}
-                    description={item.data.description}
-                    company={item.data.company}
-                    href={`/portfolio/${item.id}`}
-                    featured={true}
-                    tags={item.data.tags}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* All Case Studies */}
-          <section class="all-studies-section">
-            <h2 class="section-heading">
-              {featuredItems.length > 0 ? 'More Case Studies' : 'Case Studies'}
-            </h2>
-            <div class="case-study-grid">
-              {regularItems.map((item) => (
-                <CaseStudyCard
-                  title={item.data.title}
-                  description={item.data.description}
-                  company={item.data.company}
-                  href={`/portfolio/${item.id}`}
-                  featured={false}
-                  tags={item.data.tags}
-                />
-              ))}
-            </div>
-          </section>
-        </>
+        <ul class="work-list">
+          {portfolioItems.map(item => (
+            <li class="work-item">
+              <a href={`/portfolio/${item.id}`} class="work-link">
+                <span class="work-title">{item.data.title}</span>
+              </a>
+              <p class="work-description">{item.data.description}</p>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
-  </div>
+  </main>
 </BaseLayout>
 
 <style>
-  .portfolio-page {
-    padding-top: var(--space-2xl);
-    padding-bottom: var(--space-2xl);
+  .work-page {
+    padding: var(--space-3xl) 0;
   }
 
-  /* Page Header */
   .page-header {
     margin-bottom: var(--space-2xl);
-    text-align: center;
   }
 
   .page-header h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .lead {
-    font-size: var(--text-lg);
     color: var(--color-text-muted);
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
+    font-size: var(--text-lg);
+    max-width: var(--content-width);
+    margin: 0;
   }
 
-  /* Section Headings */
-  .section-heading {
-    font-family: var(--font-sans);
-    font-size: var(--text-xl);
+  .empty {
+    color: var(--color-text-muted);
+  }
+
+  .work-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .work-item {
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .work-item:first-child {
+    padding-top: 0;
+  }
+
+  .work-item:last-child {
+    border-bottom: none;
+  }
+
+  .work-link {
+    display: block;
+    text-decoration: none;
+    margin-bottom: var(--space-sm);
+  }
+
+  .work-link:hover .work-title {
+    text-decoration: underline;
+  }
+
+  .work-title {
+    display: block;
     font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--color-border);
-  }
-
-  .featured-section {
-    margin-bottom: var(--space-2xl);
-  }
-
-  .all-studies-section {
-    margin-top: var(--space-2xl);
-  }
-
-  /* Case Study Grid */
-  .case-study-grid {
-    display: grid;
-    gap: var(--space-xl);
-    grid-template-columns: 1fr;
-  }
-
-  /* Featured grid can span full width */
-  .featured-grid {
-    gap: var(--space-xl);
-  }
-
-  /* Empty State */
-  .empty-state {
-    text-align: center;
-    padding: var(--space-2xl);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    margin-top: var(--space-2xl);
-  }
-
-  .empty-message {
-    color: var(--color-text-muted);
     font-size: var(--text-lg);
-    max-width: 600px;
-    margin: 0 auto;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .work-meta {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .work-description {
+    color: var(--color-text);
     line-height: 1.6;
-  }
-
-  /* Tablet breakpoint (640px+) */
-  @media (min-width: 640px) {
-    .page-header h1 {
-      font-size: var(--text-4xl);
-    }
-
-    .lead {
-      font-size: var(--text-xl);
-    }
-
-    .section-heading {
-      font-size: var(--text-2xl);
-    }
-  }
-
-  /* Tablet/Desktop breakpoint (768px+) */
-  @media (min-width: 768px) {
-    .case-study-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Featured items can span both columns */
-    .featured-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  /* Large desktop breakpoint (1024px+) */
-  @media (min-width: 1024px) {
-    .portfolio-page {
-      padding-top: var(--space-2xl);
-      padding-bottom: var(--space-2xl);
-    }
-
-    .page-header {
-      margin-bottom: var(--space-2xl);
-    }
+    margin: 0;
+    max-width: var(--content-width);
   }
 </style>
